@@ -2,16 +2,20 @@ import re
 import argparse
 from collections import Counter
 
+from nltk.stem import PorterStemmer
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "normalizations", 
     nargs="*",
-    choices=["lowercase"],
-    help="Token normalization options: lowercase"
+    choices=["lowercase", "stem"],
+    help="Token normalization options: lowercase, stem"
     )
 parser.add_argument("filename", help="The path to the input plain text file")
 
 args = parser.parse_args()
+
+stem = PorterStemmer()
 
 def tokenize(plain_text):
     tokens = re.split(r'\W+', plain_text)
@@ -21,6 +25,8 @@ def normalize(tokens, normalizations):
     for norm_type in normalizations:
         if norm_type =="lowercase":
             tokens = [t.lower() for t in tokens]
+        elif norm_type =="stem":
+            tokens = [stem.stem(t) for t in tokens]
     return tokens
 
 def count_tokens(tokens):
