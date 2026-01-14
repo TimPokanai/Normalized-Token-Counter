@@ -2,16 +2,22 @@ import re
 import argparse
 from collections import Counter
 
+import nltk
 from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+
+nltk.download("wordnet")
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument("filename", help="The path to the input plain text file")
 parser.add_argument("-lowercase", action="store_true", help="Lowercase normalization")
 parser.add_argument("-stem", action="store_true", help="Stemming normalization")
+parser.add_argument("-lemmatize", action="store_true", help="Lemmatization normalization")
 
 args = parser.parse_args()
 
+lemma = WordNetLemmatizer()
 stem = PorterStemmer()
 
 def tokenize(plain_text):
@@ -22,6 +28,8 @@ def normalize(tokens, args):
         tokens = [t.lower() for t in tokens]
     if args.stem:
         tokens = [stem.stem(t) for t in tokens]
+    if args.lemmatize:
+        tokens = [lemma.lemmatize(t) for t in tokens]
     return tokens
 
 def count_tokens(tokens):
