@@ -3,26 +3,13 @@ import argparse
 from collections import Counter
 
 import nltk
-from nltk.stem import PorterStemmer
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.corpus import stopwords
 
-nltk.download("wordnet")
-nltk.download("stopwords")
+nltk.download("wordnet", quiet=True)
+nltk.download("stopwords", quiet=True)
 
 STOPWORDS = set(stopwords.words("english"))
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument("filename", help="The path to the input plain text file")
-parser.add_argument("-lowercase", action="store_true", help="Lowercase normalization")
-parser.add_argument("-stem", action="store_true", help="Stemming normalization")
-parser.add_argument("-lemmatize", action="store_true", help="Lemmatization normalization")
-parser.add_argument("-stopwords", action="store_true", help="Stopwords normalization")
-parser.add_argument("-myopt", action="store_true", help="Single character normalization")
-
-
-args = parser.parse_args()
 
 lemma = WordNetLemmatizer()
 stem = PorterStemmer()
@@ -54,9 +41,25 @@ def process_file(filename, args):
             tokens = tokenize(text)
             normalized_tokens = normalize(tokens, args)
 
-            return count_tokens(normalized_tokens)
+            tokens_counts = count_tokens(normalized_tokens)
+            print(tokens_counts[0:25])
+            return tokens_counts
     except FileNotFoundError:
         print(f"Error: File '{filename}' not found.")
 
-tokens_counts = process_file(args.filename, args)
-print(tokens_counts[0:25])
+def main():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("filename", help="The path to the input plain text file")
+    parser.add_argument("-lowercase", action="store_true", help="Lowercase normalization")
+    parser.add_argument("-stem", action="store_true", help="Stemming normalization")
+    parser.add_argument("-lemmatize", action="store_true", help="Lemmatization normalization")
+    parser.add_argument("-stopwords", action="store_true", help="Stopwords normalization")
+    parser.add_argument("-myopt", action="store_true", help="Single character normalization")
+
+    args = parser.parse_args()
+
+    tokens_counts = process_file(args.filename, args)
+
+if __name__ == "__main__":
+    main()
