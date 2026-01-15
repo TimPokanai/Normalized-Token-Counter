@@ -18,7 +18,9 @@ parser.add_argument("filename", help="The path to the input plain text file")
 parser.add_argument("-lowercase", action="store_true", help="Lowercase normalization")
 parser.add_argument("-stem", action="store_true", help="Stemming normalization")
 parser.add_argument("-lemmatize", action="store_true", help="Lemmatization normalization")
-parser.add_argument("-stopwords", action="store_true", help="Stopwords normalizationo")
+parser.add_argument("-stopwords", action="store_true", help="Stopwords normalization")
+parser.add_argument("-myopt", action="store_true", help="Single character normalization")
+
 
 args = parser.parse_args()
 
@@ -33,6 +35,8 @@ def normalize(tokens, args):
         tokens = [t.lower() for t in tokens]
     if args.stopwords:
         tokens = [t for t in tokens if t not in STOPWORDS]
+    if args.myopt:
+        tokens = [t for t in tokens if not (len(t) == 1 and t.isalpha())]
     if args.stem:
         tokens = [stem.stem(t) for t in tokens]
     if args.lemmatize:
