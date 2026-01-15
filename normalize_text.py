@@ -5,8 +5,12 @@ from collections import Counter
 import nltk
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 
 nltk.download("wordnet")
+nltk.download("stopwords")
+
+STOPWORDS = set(stopwords.words("english"))
 
 parser = argparse.ArgumentParser()
 
@@ -14,6 +18,7 @@ parser.add_argument("filename", help="The path to the input plain text file")
 parser.add_argument("-lowercase", action="store_true", help="Lowercase normalization")
 parser.add_argument("-stem", action="store_true", help="Stemming normalization")
 parser.add_argument("-lemmatize", action="store_true", help="Lemmatization normalization")
+parser.add_argument("-stopwords", action="store_true", help="Stopwords normalizationo")
 
 args = parser.parse_args()
 
@@ -26,6 +31,8 @@ def tokenize(plain_text):
 def normalize(tokens, args):
     if args.lowercase:
         tokens = [t.lower() for t in tokens]
+    if args.stopwords:
+        tokens = [t for t in tokens if t not in STOPWORDS]
     if args.stem:
         tokens = [stem.stem(t) for t in tokens]
     if args.lemmatize:
