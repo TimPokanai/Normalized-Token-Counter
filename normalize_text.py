@@ -34,7 +34,7 @@ def normalize(tokens, args):
         tokens = [lemma.lemmatize(t) for t in tokens]
     return tokens
 
-# Use Counter() objectect to count token occurences and filter by most to least common
+# Use Counter() object to count token occurences and filter by most to least common
 def count_tokens(tokens):
     return Counter(tokens).most_common()
 
@@ -48,7 +48,14 @@ def process_file(filename, args):
             normalized_tokens = normalize(tokens, args)
 
             tokens_counts = count_tokens(normalized_tokens)
-            print(tokens_counts[0:25])
+            
+            print("\nTop 25 tokens:")
+            for token, count in tokens_counts[:25]:
+                print(f"{token:<20} {count}")
+            print("\nBottom 25 tokens:")
+            for token, count in tokens_counts[-25:]:
+                print(f"{token:<20} {count}")
+
             return tokens_counts
     except FileNotFoundError:
         print(f"Error: File '{filename}' not found.")
