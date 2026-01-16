@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from types import SimpleNamespace
 from normalize_text import process_file
 
-# Defining our normalization args
+# Defining our normalization args, these can be hardcoded to whatever normalization args you want for visualizing
 args = SimpleNamespace(
     lowercase=True,
     stem=False,
