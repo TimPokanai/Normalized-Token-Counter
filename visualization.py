@@ -17,7 +17,7 @@ counted_tokens = process_file("pg1257.txt", args)
 tokens, counts = zip(*counted_tokens)
 
 # Data visualization logic
-plt.figure()
+plt.figure(figsize=(12,8))
 plt.bar(tokens[:25], counts[:25], align="center")
 
 plt.xlabel("Tokens")
@@ -27,4 +27,5 @@ plt.title("Normalized Token Counts in The Three Musketeers")
 plt.xticks(rotation=25, ha="right", fontsize=8)
 plt.grid(axis="y", alpha=0.5)
 
+plt.savefig("Sample Output.png")
 plt.show()
