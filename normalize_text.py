@@ -49,6 +49,7 @@ def process_file(filename, args):
 
             tokens_counts = count_tokens(normalized_tokens)
             
+            # Here we just display the top 25 and bottom 25 tokens and their counts to terminal in a neat format
             print("\nTop 25 tokens:")
             for token, count in tokens_counts[:25]:
                 print(f"{token:<20} {count}")
