@@ -26,12 +26,12 @@ def normalize(tokens, args):
         tokens = [t.lower() for t in tokens]
     if args.stopwords:
         tokens = [t for t in tokens if t not in STOPWORDS]
-    if args.myopt:
-        tokens = [t for t in tokens if not (len(t) == 1 and t.isalpha())]
     if args.stem:
         tokens = [stem.stem(t) for t in tokens]
     if args.lemmatize:
         tokens = [lemma.lemmatize(t) for t in tokens]
+    if args.myopt:
+        tokens = [t for t in tokens if not (len(t) == 1 and t.isalpha())]
     return tokens
 
 # Use Counter() object to count token occurences and filter by most to least common

@@ -7,8 +7,8 @@ from normalize_text import process_file
 args = SimpleNamespace(
     lowercase=True,
     stem=False,
-    lemmatize=False,
-    stopwords=True,
+    lemmatize=True,
+    stopwords=False,
     myopt=True
 )
 
@@ -19,6 +19,7 @@ tokens, counts = zip(*counted_tokens)
 # Data visualization logic
 plt.figure(figsize=(12,8))
 plt.bar(tokens[:25], counts[:25], align="center")
+plt.yscale("log")
 
 plt.xlabel("Tokens")
 plt.ylabel("Counts")
