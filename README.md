@@ -1,3 +1,5 @@
+1. What you will find in this repository
+
 After extracting the ZIP file, your directory should look like this:
 
 Normalized-Token-Counter/
@@ -5,11 +7,12 @@ Normalized-Token-Counter/
 ├── normalize_text.py
 ├── pg1257.txt
 ├── README.md
+├── Sample Output.png
 └── visualization.py
 
 The file pg1257.txt is required to run visualization.py as written. You may replace it with any UTF-8 encoded .txt file and modify the code in visualization.py to reflect the new .txt file.
 
-Setting up the environment
+2. Setting up the environment
 
 Step 1: Create and setup a new Conda environment
 
@@ -21,10 +24,10 @@ Step 2: Install required packages
 
 - Install the required dependencies using conda: conda install -n MYENV matplotlib nltk
 
+3. File descriptions
 
+- The script normalize_text.py reads a plain-text file, normalizes the text using non-alphabetic delimiters, applies normalization type(s), counts token occurences, and returns the list of tokens and their counts as well as displays the first and last 25 tokens by frequency to the terminal. Supported normalization options include: (-lowercase, -stem, -lemmatize, -stopwords, -myopt)
 
-normalize_text.py is the plain text normalization and processing script that can be invoked via command line, and is also called as a function in visualization.py
+- The script visualization.py uses process_file() from normalize_text.py, hardcodes normalization options, and generates a log-scaled bar chart of the top 25 tokens and their counts. The output is saved as Sample Output.png.
 
-visualization.py is a script that visualizes tokens and their occurences on a bar plot using matplotlib
-
-To run visualization.py, open the terminal in the directory where the two python scripts are located and simply type: python visualization.py
+4. Running the scripts
